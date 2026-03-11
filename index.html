@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Твой балл ЕНТ</title>
+
+<style>
+body{
+font-family: Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:40px;
+}
+
+.question{
+margin:25px 0;
+font-size:18px;
+}
+
+button{
+padding:10px 20px;
+margin:5px;
+border:none;
+border-radius:8px;
+background:#22c55e;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+.result{
+font-size:32px;
+margin-top:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Угадаем твой балл ЕНТ</h1>
+<p>Ответь на 5 быстрых вопросов</p>
+
+<div id="quiz"></div>
+
+<button onclick="showResult()">Показать результат</button>
+
+<div class="result" id="result"></div>
+
+<script>
+
+const questions = [
+
+{
+q:"8 × 7 = ?",
+answers:["54","56","64","72"],
+correct:1
+},
+
+{
+q:"Столица Казахстана?",
+answers:["Алматы","Астана","Шымкент","Караганда"],
+correct:1
+},
+
+{
+q:"15² = ?",
+answers:["205","215","225","235"],
+correct:2
+},
+
+{
+q:"Сколько континентов на Земле?",
+answers:["5","6","7","8"],
+correct:2
+},
+
+{
+q:"Сколько будет 12 + 19 ?",
+answers:["29","30","31","32"],
+correct:2
+}
+
+];
+
+let userAnswers = [];
+
+function loadQuiz(){
+
+let html="";
+
+questions.forEach((q,i)=>{
+
+html+=`<div class="question">${i+1}. ${q.q}<br>`;
+
+q.answers.forEach((a,j)=>{
+
+html+=`<button onclick="answer(${i},${j})">${a}</button>`;
+
+});
+
+html+=`</div>`;
+
+});
+
+document.getElementById("quiz").innerHTML=html;
+
+}
+
+function answer(q,a){
+userAnswers[q]=a;
+}
+
+function showResult(){
+
+let score=0;
+
+questions.forEach((q,i)=>{
+if(userAnswers[i]==q.correct) score++;
+});
+
+let entScore = Math.round((score / questions.length) * 140);
+
+document.getElementById("result").innerHTML =
+`Твой прогноз ЕНТ: <br><b>${entScore} баллов</b>`;
+
+}
+
+loadQuiz();
+
+</script>
+
+</body>
+</html>
